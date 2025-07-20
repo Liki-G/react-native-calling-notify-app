@@ -1,35 +1,13 @@
-import React, { useEffect } from 'react';
-import { Alert, View, Text } from 'react-native';
-import messaging from '@react-native-firebase/messaging';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
 
-function Home() { return <View><Text>Home Screen</Text></View>; }
-function Notification({ route }) {
-  return <View><Text>Push: {route.params?.body}</Text></View>;
-}
+import React from 'react';
+import {Text, View} from 'react-native';
 
-const Stack = createStackNavigator();
-
-export default function App() {
-  useEffect(() => {
-    messaging().onMessage(async msg => {
-      Alert.alert(msg.notification?.title, msg.notification?.body);
-    });
-
-    messaging().setBackgroundMessageHandler(async msg => {
-      console.log('BG msg', msg);
-    });
-
-    messaging().getToken().then(token => console.log('FCM Token:', token));
-  }, []);
-
+const App = () => {
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="Notification" component={Notification} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+      <Text>React Native Calling Notify App</Text>
+    </View>
   );
-}
+};
+
+export default App;
